@@ -18,3 +18,23 @@ echo "🌡️ Temperature: $TEMP°C"
 echo "🌤️ Condition: $CONDITION"
 
 #------quotes based on weather--------
+QUOTE_FILE =""
+
+ if echo "$CONDITION" | grep -iqE "Rain|Fog|Cloud"; then
+	QUOTE_FILE = "gloomy.txt"
+ elif echo "$CONDITION" | grep -iqE "Sun | Clear"; then
+	QUOTE_FILE = "sunny.txt"
+ elif echo "$CONDITION" | grep -iqE "Snow|Cold"; then
+	QUOTE_FILE = "Cozy.txt"
+ else
+	QUOTE_FILE = "gloomy.txt"
+fi
+#------checking and handeling the txt files missing
+if [[ -s "$QUOTE_FILE" ]]; then
+	QUOTE = $(shuf -n 1 "$QUOTE_FILE")
+else
+	QUOTE = "Just Keep Swimming."
+fi
+#------- Quote show------------------
+  echo "🧾 $QUOTE"
+fi
